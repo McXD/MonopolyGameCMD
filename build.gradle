@@ -16,6 +16,7 @@ dependencies {
     testImplementation 'org.mockito:mockito-all:1.10.19'
 
     implementation 'org.jetbrains:annotations:16.0.1'
+    implementation 'org.apache.commons:commons-lang3:3.9'
 
 
     testImplementation 'org.mockito:mockito-junit-jupiter:4.0.0'
