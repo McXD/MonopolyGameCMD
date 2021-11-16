@@ -1,6 +1,9 @@
 package hk.edu.polyu.comp3211.g27.view;
 
-import com.sun.deploy.util.StringUtils;
+
+
+
+import com.google.common.base.Joiner;
 import hk.edu.polyu.comp3211.g27.controller.GameHolder;
 import hk.edu.polyu.comp3211.g27.model.Game;
 
@@ -15,8 +18,9 @@ public class CmdView {
      *
      * @return the String representation of the current game.
      */
-    public String game() { //换行符
+    public String game() {
         //help manual
+        Joiner joiner=Joiner.on("\n").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         list.add("*********************************************************************");
         list.add("               Welcome to The Monopoly Game!");
@@ -27,7 +31,7 @@ public class CmdView {
         list.add("Here shows the announcement and work flow:");
         list.add("1. Players have money and can own properties. Each player starts with \n" +
                 "HKD 1500 and no property.");
-        list.add("2. All players start from the first square (“Go”).");
+        list.add("2. All players start from the first square ('Go').");
         list.add("3. Players take turns in rolling the dice and advancing their respective tokens clockwise on the \n" +
                 "board. After reaching square 20, a token moves to square 1 again.");
         list.add("4. Certain squares take effect on a player (see below) when her token \n" +
@@ -79,12 +83,11 @@ public class CmdView {
         list.add("This square has no effect.");
         list.add("-------------------------------------------------------------------------------");
         list.add("Go to Jail");
-        list.add(" If a player lands on this square, she immediately goes to the “In Jail” part of the “In \n" +
-                "Jail/Just Visiting” square.");
+        list.add(" If a player lands on this square, she immediately goes to the 'In Jail' part of the 'In Jail/Just Visiting' square.");
         list.add("-------------------------------------------------------------------------------");
         list.add("In Jail/Just Visiting");
-        list.add("If a player lands on this square, she is “Just Visiting”: the square has no effect.");
-        list.add("If the player got here by landing on “Go to Jail”, she is in jail and cannot make a move.");
+        list.add("If a player lands on this square, she is 'Just Visiting': the square has no effect.");
+        list.add("If the player got here by landing on 'Go to Jail', she is in jail and cannot make a move.");
         list.add("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^");
         list.add("Tip 1: A player gets out of jail by either throwing doubles (i.e., both dice \n" +
                 "coming out the same face up) on any of her next three turns (if she succeeds in doing \n" +
@@ -185,56 +188,62 @@ public class CmdView {
             i=i+1;
         }
 
-        String list_str= StringUtils.join(list,"\n");
+        String list_str= joiner.join(list);
         return list_str;
     }
 
     public String gameId(){  //
+        Joiner joiner=Joiner.on("").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         list.add(GameHolder.get().getId());
-        String list_str= StringUtils.join(list,"");
+        String list_str= joiner.join(list);
         return list_str;
     }
 
     public String playersLeft(){
+        Joiner joiner=Joiner.on(" ").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         for (int k=1;k<=GameHolder.get().playersLeft().size();k++){
             list.add(GameHolder.get().playersLeft().get(k-1).getId());
         }
 
-        String list_str= StringUtils.join(list," ");
+        String list_str= joiner.join(list);
         return list_str;
 
     }
 
     public String currentMoney() {
+        Joiner joiner=Joiner.on("\n").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         for (int i=0;i<GameHolder.get().playersLeft().size();i++){
             list.add(String.valueOf(GameHolder.get().currentMoney(GameHolder.get().playersLeft().get(i))));
         }
-        String list_str= StringUtils.join(list,"\n");    //
+        String list_str= joiner.join(list);    //
         return list_str;
     }
 
     public String currentPropertyHolding(){
+        Joiner joiner=Joiner.on("\n").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         for (int i=0;i<GameHolder.get().playersLeft().size();i++){
             list.add((GameHolder.get().propertyHoldingStatusFor(GameHolder.get().playersLeft().get(i))).toString());
         }
-        String list_str= StringUtils.join(list,"\n");
+        String list_str= joiner.join(list);
         return list_str;
     }
 
     public String turn() {
+        Joiner joiner=Joiner.on("\n").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         list.add("This is "+GameHolder.get().currentTurn().getPlayer()+" turn.");
         list.add("Now you are in the Square: "+GameHolder.get().currentTurn().getOldSquare().getLabel());
         list.add(" ( "+GameHolder.get().currentTurn().getOldSquare().getIndex()+" ).");
-        String list_str= StringUtils.join(list,"\n");
+        String list_str= joiner.join(list);
         return list_str;
     }
 
     public String gameBoard(){
+        Joiner joiner=Joiner.on("\n").skipNulls();
         ArrayList<String> list=new ArrayList<String>();
         list.add("        11          12          13          14          15");
         list.add("   |----------|-----------|-----------|-----------|-----------|-----------|");
@@ -263,9 +272,11 @@ public class CmdView {
         list.add("   | VISITING |  HKD  600 |  PAY  10% |  HKD  700 |  HKD  800 |GET HKD1500|");
         list.add("   |----------|-----------|-----------|-----------|-----------|-----------|");
         list.add("                    5           4           3           2           1 ");
-        String list_str= StringUtils.join(list,"\n");
+        String list_str= joiner.join(list);
         return list_str;
     }
+}
+
 }
 
 
