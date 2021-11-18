@@ -63,6 +63,8 @@ public class JailSquare extends Square{
                 int[] dices = Dices.makeDraw();
                 currentTurn.setStepToTake(dices[0] + dices[1]);
                 game.move();
+                System.out.println("You have entered: " + game.currentTurn().getNewSquare().toString()); // report new position
+                game.currentTurn().getNewSquare().onEnter(game);
             } else {
                 playDouble(game);
             }
@@ -82,6 +84,8 @@ public class JailSquare extends Square{
             game.releaseFromJail(currentPlayer);
             currentTurn.setStepToTake(dices[0] + dices[1]);
             game.move();
+            System.out.println("You have entered: " + game.currentTurn().getNewSquare().toString()); // report new position
+            game.currentTurn().getNewSquare().onEnter(game);
         } else { // check if this is the player's last term
             if (game.inJailCheck(currentPlayer) == 1) { // this is the last term, the player must pay the fine
                 System.out.println("This is your last term - a fine is automatically paid! Goodbye!");
@@ -91,6 +95,8 @@ public class JailSquare extends Square{
 
                 currentTurn.setStepToTake(dices[0] + dices[1]);
                 game.move();
+                System.out.println("You have entered: " + game.currentTurn().getNewSquare().toString()); // report new position
+                game.currentTurn().getNewSquare().onEnter(game);
             } else { // still in jail, status is automatically updated
                 System.out.println("Enjoy your remaining terms.");
             }
