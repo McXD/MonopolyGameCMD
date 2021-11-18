@@ -1,11 +1,15 @@
 package hk.edu.polyu.comp3211.g27.model.square;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import hk.edu.polyu.comp3211.g27.model.Game;
 import hk.edu.polyu.comp3211.g27.model.Player;
 
 public class FreeParkingSquare extends Square{
 
-    public FreeParkingSquare(int index, String label){
+    @JsonCreator
+    public FreeParkingSquare(@JsonProperty("index") int index,
+                          @JsonProperty("label") String label) {
         super(index, label);
     }
 
