@@ -155,7 +155,9 @@ public class Client implements Runnable {
     private List<String> getGameIdsFromArchive() {
         File archiveFolder = new File("./.archive");
         File[] listOfFiles = archiveFolder.listFiles();
-        listOfFiles[0].lastModified();
+
+        if (listOfFiles == null) return new ArrayList<>();
+
         List<String> fileNames = Arrays.stream(listOfFiles)
                 .map(File::getName)
                 .map(it -> it.split("\\.")[0])
@@ -166,6 +168,9 @@ public class Client implements Runnable {
 
     private List<File> getGameFiles() {
         File archiveFolder = new File("./.archive");
+
+        if (!archiveFolder.exists()) return new ArrayList<>();
+
         return Arrays.asList(archiveFolder.listFiles());
     }
 
